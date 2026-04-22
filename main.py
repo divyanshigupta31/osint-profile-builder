@@ -1,4 +1,5 @@
 from utils import check_github
+import json 
 
 def build_profile(username):
     print("\n===== OSINT PROFILE =====\n")
@@ -17,6 +18,8 @@ def build_profile(username):
         print("Repositories:")
         for repo in github["repositories"]:
             print("-", repo)
+        with open(f"{username}_profile.json", "w") as f:
+            json.dump(github, f, indent=4)
     else:
         print("GitHub profile not found")
 

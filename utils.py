@@ -4,6 +4,24 @@ from bs4 import BeautifulSoup
 headers = {
     "User-Agent": "Mozilla/5.0"
 }
+def get_repositories(username):
+    url = f"https://github.com/{username}?tab=repositories"
+    
+    try:
+        r = requests.get(url, headers=headers, timeout=5)
+        soup = BeautifulSoup(r.text, "html.parser")
+        
+        repo_list = []
+        
+        repos = soup.find_all("a", itemprop="name codeRepository")
+        
+        for repo in repos:
+            repo_list.append(repo.text.strip())
+        
+        return repo_list[:5]
+    
+    except:
+        return []
 
 def check_github(username):
     url = f"https://github.com/{username}"
@@ -36,6 +54,7 @@ def check_github(username):
         repos_tag = soup.find("a", href=f"/{username}?tab=repositories")
         repos = repos_tag.text.strip() if repos_tag else "N/A"
         
+        repos_list = get_repositories(username)
         return {
             "platform": "GitHub",
             "name": name,
@@ -43,7 +62,8 @@ def check_github(username):
             "followers": followers,
             "following": following,
             "repos": repos,
-            "url": url
+            "url": url,
+            "repositories": repos_list
         }
     
     except:

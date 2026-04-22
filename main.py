@@ -14,6 +14,9 @@ def build_profile(username):
         print("Following:", github["following"])
         print("Repositories:", github["repos"])
         print("Profile:", github["url"])
+        print("Repositories:")
+        for repo in github["repositories"]:
+            print("-", repo)
     else:
         print("GitHub profile not found")
 

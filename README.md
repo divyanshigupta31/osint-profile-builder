@@ -56,7 +56,7 @@ Rather than replacing manual profile lookup, the tool demonstrates how publicly 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/osint-profile-builder.git
+git clone https://github.com/divyanshigupta31/osint-profile-builder.git
 cd osint-profile-builder
 ```
 

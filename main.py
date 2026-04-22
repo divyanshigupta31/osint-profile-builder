@@ -18,11 +18,20 @@ def build_profile(username):
         print("Repositories:")
         for repo in github["repositories"]:
             print("-", repo)
-        with open(f"{username}_profile.json", "w") as f:
-            json.dump(github, f, indent=4)
+        all_profiles = []
+
+        for username in usernames:
+            profile = check_github(username.strip())
+            if profile:
+                all_profiles.append(profile)
+
+        with open("all_profiles.json", "w") as f:
+            json.dump(all_profiles, f, indent=4)
     else:
         print("GitHub profile not found")
 
 if __name__ == "__main__":
-    username = input("Enter username: ")
-    build_profile(username)
+    usernames = input("Enter usernames (comma separated): ").split(",")
+    for username in usernames:
+        username = username.strip()
+        build_profile(username)
